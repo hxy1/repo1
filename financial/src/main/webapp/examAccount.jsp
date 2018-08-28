@@ -33,6 +33,7 @@
 			      <div class="layui-input-inline">
 			        <input type="text" class="layui-input" id="test3" placeholder="2018-08">
 			      </div>
+				  <button class="layui-btn" data-type="reload" type="submit">搜索</button>
 			    </div>
 						
                     <div class="table-responsive table2excel" style="width: 1246px; "

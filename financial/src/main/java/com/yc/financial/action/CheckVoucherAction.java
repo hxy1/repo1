@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.financial.service.CheckService;
+import com.yc.financial.util.StringUtils;
 import com.yc.financial.vo.DetailsVO;
 import com.yc.financial.vo.PayrollVO;
 
@@ -26,10 +27,21 @@ public class CheckVoucherAction {
 
 	@RequestMapping(value="/voucher.do",produces = "application/json;charset=utf-8")
 	public @ResponseBody String login(String op,PayrollVO payroll,DetailsVO details,
-			Model model,HttpServletRequest request,HttpServletResponse response,String demoReload){
+			Model model,HttpServletRequest request,HttpServletResponse response
+			,String demoReload,Integer page,Integer limit,Integer id){
+		String time = request.getParameter("time");
+		
+		if(StringUtils.isBlank(time)){
+			time = null;
+		}
+		if(StringUtils.isBlank(String.valueOf(id))){
+			id = null;
+		}
+		
+		Integer start = (page-1)*limit;
 		if("checkvoucher".equals(op)){
-			List<DetailsVO> Voucherlist = checkservice.selectByCheckVoucher(details);
 			int CountVoucher = checkservice.countCountVoucher(details);
+			List<DetailsVO> Voucherlist = checkservice.selectByPag(id, time, start, limit);
 			JSONObject voucherJson = new JSONObject();
 			voucherJson.put("code", 0);
 			voucherJson.put("msg", "");
@@ -45,7 +57,7 @@ public class CheckVoucherAction {
 			salaryJson.put("count", CountSalary);
 			salaryJson.put("data", Salarylist);
 			return salaryJson.toString();
-		}else{
+		}else{     
 			return "404";
 		}
 	}

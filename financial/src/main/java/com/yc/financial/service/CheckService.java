@@ -42,4 +42,14 @@ public interface CheckService {
 	 */
 	public List<DetailsVO> selectTypes(String types);
 	
+	/**
+	 * 
+	 * @param id	id
+	 * @param time	时间（String）
+	 * @param start  查询开始的地方
+	 * @param limit	 查多少条
+	 * @return
+	 */
+	List<DetailsVO> selectByPag(Integer id,String time,Integer start,Integer limit);
+	
 }

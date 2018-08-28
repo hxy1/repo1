@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="./layui1/css/layui.css"  media="all">
 
 </head>
+<%
+if(request.getAttribute("modi") == null){
+	request.setAttribute("modi","0");
+}
+%>
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./layui1/layui.js"></script>
 <script type="text/javascript" src="./js/sys_config.js"></script>
@@ -149,6 +154,14 @@
     	 
     	})
 
+    	var modi = "${modi}"
+	if(modi == "2"){
+		layui.use('layer', function(){
+			  var layer = layui.layer;
+			  layer.msg('资料修改失败，请重新修改');
+			}); 
+	}
+    	
     </script>
 </body>
 </html>

@@ -28,20 +28,20 @@
               </div> 
               <hr>
 		  
-		  <form action="journal.do">
     <div class="demoTable">
       <label class="layui-form-label">选择日期</label>
+      
       <div class="layui-input-inline">
-        <input type="text" class="layui-input" id="test1" placeholder="2018-08-22">
+        <input type="text" class="layui-input" name="time" id="time" placeholder="2018-08-27">
       </div>&nbsp;&nbsp;&nbsp;
-      	搜索ID：
+      
+      	搜索编号:
 	  <div class="layui-inline">
-	    <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
+	    <input class="layui-input" name="id" id="id" autocomplete="off">
 	  </div>
-	  <button class="layui-btn" data-type="reload" type="submit">搜索</button>
+	  
+	  <button class="layui-btn" data-type="reload">搜索</button>
     </div>
-    </form>
-		  
                     <div class="table-responsive table2excel" style="width: 800px; "
 					data-tableName="Test Table 1">    
 						<table class="layui-hide" id="LAY_table_user" lay-filter="test"></table>
@@ -63,14 +63,35 @@ layui.use('laydate', function(){
 	var laydate = layui.laydate;
 	//年月日选择器
 	laydate.render({
-	  elem: '#test1'
+	  elem: '#time'
 	});
 });
 
-var demoReload = $('#demoReload').val();
 
 layui.use('table', function(){
   var table = layui.table;
+  
+  var $ = layui.$, active = {
+		  reload: function(){
+	  	      var id = $('#id').val();
+	  	      var time = $('#time').val();
+	  	      if(Math.round(id) == id){
+	  	    	table.reload('testReload', {
+		  	        page: {
+		                  curr: 1 //重新从第 1 页开始
+		                },
+		  	        where: { id: id,time:time}
+		  	      });
+	  	      }else{
+	  	    	 //id不为数字，弹出提示
+	  	  	    layui.use('layer', function(){
+	  				  var layer = layui.layer;
+	  				  layer.msg('请输入正确的整数型id');
+	  				}); 
+	  	      }
+	  	    }
+	  };
+  
   //第一个实例
   table.render({
     elem: '#LAY_table_user	'
@@ -87,18 +108,6 @@ layui.use('table', function(){
   ,id: 'testReload'
   });
   
-  var $ = layui.$, active = {
-  	    reload: function(){
-  	      var demoReload = $('#demoReload');
-  	      table.reload('testReload', {
-  	        page: {curr: 1 }
-  	        ,where: {
-  	            keyword: demoReload.val()
-  	        }
-  	      });
-  	    }
-  };
-  	  
   $('.demoTable .layui-btn').on('click', function(){
 	    var type = $(this).data('type');
 	    active[type] ? active[type].call(this) : '';
@@ -117,7 +126,6 @@ $(function() {
         });  
     });    
 }); 
-
 </script> 
     
 </body>    

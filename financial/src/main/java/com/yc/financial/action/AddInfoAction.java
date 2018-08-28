@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,8 +30,8 @@ public class AddInfoAction {
 	private RegistService registservice;
 	
 	@RequestMapping(value="/allregist.do",produces = "application/json;charset=utf-8")
-	public String addinfo(@RequestParam("file") MultipartFile file,UsersVO users ,
-			HttpSession session,HttpServletRequest request ) throws IllegalStateException, IOException{
+	public String addinfo(@RequestParam("file") MultipartFile file,Model model,UsersVO users ,
+			HttpSession session,HttpServletRequest request) throws IllegalStateException, IOException{
 		if (!file.isEmpty()) {
 			String oldName = file.getOriginalFilename();
 			String fileName = changeName(oldName);
@@ -42,11 +43,13 @@ public class AddInfoAction {
 			//没修改图片
 			users.setUpic(addinfoService.selectByUid(users).getUpic());
 		}
+		
+		String account = (String) session.getAttribute("account");
+		users.setAccount(account);
 		List<UsersVO> list1 = registservice.selectByAccount(users);
 		addinfoService.AddInfo(users);
-		String account = (String) session.getAttribute("account");
-		System.out.println(account);
-		return "index";
+		model.addAttribute("closeWindow", true);
+		return "addInfo";
 	}
 	
 	public static String changeName(String oldName){

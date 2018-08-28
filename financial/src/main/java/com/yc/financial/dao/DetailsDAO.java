@@ -2,6 +2,7 @@ package com.yc.financial.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -50,5 +51,7 @@ public interface DetailsDAO {
 	 */
 	@Select("select * from details where types= #{types}")
 	List<DetailsVO> selectTypes(String types);
+	
+	List<DetailsVO> selectByPag(@Param("id")Integer id,@Param("time")String time,@Param("start")Integer start,@Param("size")Integer size);
 	
 }
