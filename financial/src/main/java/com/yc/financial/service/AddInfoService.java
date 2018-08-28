@@ -6,7 +6,7 @@ import com.yc.financial.vo.UsersVO;
 
 public interface AddInfoService {
 
-	public UsersVO AddInfo(UsersVO users);
+	public Integer AddInfo(UsersVO users);
 	
 	public UsersVO selectByUid(UsersVO users);
 	

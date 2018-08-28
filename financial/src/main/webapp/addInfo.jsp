@@ -25,12 +25,6 @@ if(request.getAttribute("modi") == null){
 				<legend>用户管理 - 完善个人资料</legend>
             <div class="layui-field-box">
                 <form class="layui-form" method="post" action="allregist.do" enctype="multipart/form-data">
-                	<div class="layui-form-item">
-                        <label class="layui-form-label">员工账号</label>
-                        <div class="layui-input-block">
-                        <label></label>
-                        </div>
-                    </div>
                 
                     <div class="layui-form-item">
                         <label class="layui-form-label">员工姓名</label>
