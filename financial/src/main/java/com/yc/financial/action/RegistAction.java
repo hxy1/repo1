@@ -30,7 +30,7 @@ public class RegistAction {
 		}else{	
 			String account = request.getParameter("account");
 			session.setAttribute("account", account);
-			
+			//	将数据库以密文形式存入
 			String upwd = md5.GetMD5Code(request.getParameter("upwd"));
 			users.setUpwd(upwd);
 			Integer list = registservice.Regist(users);

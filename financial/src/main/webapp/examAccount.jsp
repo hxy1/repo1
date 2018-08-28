@@ -80,7 +80,7 @@ layui.use('table', function(){
 });
 </script>
 
-				<script type="text/html" id="barDemo">
+<script type="text/html" id="barDemo">
 <a class="layui-btn layui-btn-xs" lay-event="Pass" >审核通过</a>
 <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="noPass" >审核不通过</a>
 	</script>

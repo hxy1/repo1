@@ -19,7 +19,7 @@ public interface UsersDAO {
 	Integer selectByRegist(UsersVO users);
 	
 	@Update("UPDATE USERS SET UNAME=#{uname},PHONE=#{phone},EMAIL=#{email},DID=#{did},SEX=#{sex},UPIC=#{upic} WHERE ACCOUNT=#{account}")
-	public UsersVO AddInfo(UsersVO users);
+	Integer AddInfo(UsersVO users);
 	
 	@Select("SELECT * FROM USERS WHERE UID=#{uid}")
 	public UsersVO selectByUid(UsersVO user);

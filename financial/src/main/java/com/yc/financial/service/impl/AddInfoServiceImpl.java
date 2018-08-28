@@ -16,7 +16,7 @@ public class AddInfoServiceImpl implements AddInfoService {
 	private UsersDAO udao;
 	
 	@Override
-	public UsersVO AddInfo(UsersVO users) {
+	public Integer AddInfo(UsersVO users) {
 		return udao.AddInfo(users);
 	}
 
