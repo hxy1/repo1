@@ -2,6 +2,7 @@ package com.yc.financial.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,9 @@ public interface SelUserlistDAO {
 	
 	//查总记录数
 	@Select("SELECT COUNT(*) CNT FROM USERS WHERE 1=1")
-	public long count();
+	public int count(UsersVO users);
+	
+	//根据员工姓名分页查询
+	List<UsersVO> selectByPag(@Param("uname")String uname,@Param("start")Integer start,@Param("size")Integer size);
+
 }

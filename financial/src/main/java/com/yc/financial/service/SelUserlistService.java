@@ -2,6 +2,8 @@ package com.yc.financial.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yc.financial.vo.UsersVO;
 
 /**
@@ -25,5 +27,14 @@ public interface SelUserlistService {
 	public List<UsersVO> userPage(int pages, int rows);
 	
 	//查询总记录数
-	public long count();
+	public int count(UsersVO users);
+	
+	/**
+	 * 
+	 * @param uid	员工id
+	 * @param start	查询开始的地方
+	 * @param size	查多少条
+	 * @return
+	 */
+	List<UsersVO> selectByPag(@Param("uname")String uname,Integer start,Integer limit);
 }

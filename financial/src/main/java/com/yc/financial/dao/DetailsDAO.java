@@ -52,6 +52,6 @@ public interface DetailsDAO {
 	@Select("select * from details where types= #{types}")
 	List<DetailsVO> selectTypes(String types);
 	
-	List<DetailsVO> selectByPag(@Param("id")Integer id,@Param("time")String time,@Param("start")Integer start,@Param("size")Integer size);
 	
+	List<DetailsVO> selectByPag(@Param("id")Integer id,@Param("time")String time,@Param("start")Integer start,@Param("size")Integer size);
 }

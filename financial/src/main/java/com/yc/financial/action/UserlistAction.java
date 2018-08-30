@@ -12,8 +12,10 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.financial.service.SelUserlistService;
+import com.yc.financial.util.StringUtils;
 import com.yc.financial.vo.UsersVO;
 
 @Controller
@@ -22,53 +24,44 @@ public class UserlistAction {
 	UsersVO users;
 
 	@Resource
-	private SelUserlistService selUserlist;
-
-	@Resource
-	private SelUserlistService selByUname;
+	private SelUserlistService ulistservice;
 	
-	@Resource
-	private SelUserlistService count;
-	
-//	@Resource
-//	private SelUserlistService userPage;
-
-	@RequestMapping("/userlist.do")
-	public String selUserlist(HttpServletRequest req, Model model) throws IOException, ServletException {
-//		int offset = (pages-1)*rows;
-//		List<UsersVO> count= userPage.userPage(offset, rows);
-//		model.addAttribute("count", count);
+	@RequestMapping(value="/userlist.do",produces = "application/json;charset=utf-8")
+	public @ResponseBody String selUserlist(String op, HttpServletRequest req, Model model, 
+			Integer page,Integer limit) throws IOException, ServletException {
 		
-		long ret = selUserlist.count();
-		System.out.println(ret);
-		model.addAttribute("ret", ret);
-		
-		String op = req.getParameter("op");
 		String uname = req.getParameter("uname");
 		
-		if ("queryAll".equals(op)) {
-			// 如果uname为空则查询全部员工
-			List<UsersVO> list = selUserlist.selectUserlist();
-			model.addAttribute("list", list);
-
-			JSONObject jsonOb = new JSONObject();
-			jsonOb.put("code", 0);
-			jsonOb.put("msg", "");
-			jsonOb.put("count", 0);
-			jsonOb.put("data", list);
-			jsonOb.toString();
-		} else if (!"".equals(uname)) {
-			List<UsersVO> list1 = selByUname.selByUname(uname);
-			model.addAttribute("list", list1);
-
-			JSONObject jsonOb1 = new JSONObject();
-			jsonOb1.put("code", 0);
-			jsonOb1.put("msg", "");
-			jsonOb1.put("count", 0);
-			jsonOb1.put("data", list1);
-			jsonOb1.toString();
-		} 
-		return "userlist";
+		System.out.println("uname="+uname);
+		
+		if(StringUtils.isBlank(uname)){
+			uname = null;
+		}
+		
+		//从哪里开始分页
+		Integer start = (page-1)*limit;
+		if("fenye".equals(op)){
+			//查询员工列表总数
+			int ret = ulistservice.count(users);
+			
+			System.out.println("========================");
+			System.out.println("uname="+uname);
+			System.out.println("start="+start);
+			System.out.println("limit="+limit);
+			
+			
+			//开始分页
+			List<UsersVO> Userslist = ulistservice.selectByPag(uname, start, limit);
+			
+			JSONObject JsonOb = new JSONObject();
+			JsonOb.put("code", 0);
+			JsonOb.put("msg", "");
+			JsonOb.put("count", ret);
+			JsonOb.put("data", Userslist);
+			return JsonOb.toString();
+		} else{
+			return "404";
+		}
 	}
 
 }

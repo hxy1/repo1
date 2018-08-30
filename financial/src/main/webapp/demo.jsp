@@ -7,6 +7,11 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>财务管理系统</title>
+<style>
+	#anniu{
+		width:190px;
+	}
+</style>
 
 <link rel="stylesheet" href="./layui1/css/layui.css">
 </head>
@@ -50,7 +55,7 @@
 
 						<dl class="layui-nav-child">
 							<dd>
-								<a href="userlist.do?op=queryAll">员工列表</a>
+								<a href="userlist1.jsp">员工列表</a>
 							</dd>
 						</dl></li>
 

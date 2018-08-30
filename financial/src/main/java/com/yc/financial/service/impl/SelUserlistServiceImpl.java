@@ -41,8 +41,17 @@ public class SelUserlistServiceImpl implements SelUserlistService {
 	}
 
 	@Override
-	public long count() {
-		return dao.count();
+	public int count(UsersVO users) {
+		return dao.count(users);
 	}
+
+	/**
+	 * 分页查询
+	 */
+	@Override
+	public List<UsersVO> selectByPag(String uname, Integer start,Integer limit) {
+		return dao.selectByPag(uname, start, limit);
+	}
+	
 
 }

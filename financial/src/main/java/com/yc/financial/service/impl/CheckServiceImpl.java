@@ -42,7 +42,6 @@ public class CheckServiceImpl implements CheckService{
 	
 	@Override
 	public List<DetailsVO> selectByPag(Integer id, String time, Integer start, Integer limit) {
-		
 		return ddao.selectByPag(id, time, start, limit);
 	}
 
